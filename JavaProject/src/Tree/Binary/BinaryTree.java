@@ -9,7 +9,6 @@ import Tree.Node;
 import Tree.Tree;
 
 public class BinaryTree extends Tree {
-
 	// ADD
 	public Node addRecursive(Node current, int value) {
 	    if (current == null) {

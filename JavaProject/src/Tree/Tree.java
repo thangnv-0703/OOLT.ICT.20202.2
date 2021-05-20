@@ -2,7 +2,8 @@ package Tree;
 
 public abstract class Tree {
 
-	protected Node root;
+	public Node root;
+	
 	
 	
 	public abstract void add(int value);                    
