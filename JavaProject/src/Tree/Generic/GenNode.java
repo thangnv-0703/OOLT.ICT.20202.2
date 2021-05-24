@@ -1,9 +1,10 @@
-package Tree;
+package Tree.Generic;
 
 import java.util.ArrayList;
 
 public class GenNode {
 	private int value;
+	private GenNode parent;
 	ArrayList<GenNode> children = new ArrayList<GenNode>();
 			
 	public GenNode(int value) {
@@ -22,8 +23,17 @@ public class GenNode {
 		return children;
 	}
 	
-	public void setChild(int value) {
-		GenNode newNode = new GenNode(value);
-		this.children.add(newNode);
+	
+	public void setChild(GenNode x) {
+		this.children.add(x);
 	}
+
+	public GenNode getParent() {
+		return parent;
+	}
+
+	public void setParent(GenNode parent) {
+		this.parent = parent;
+	}
+	
 }

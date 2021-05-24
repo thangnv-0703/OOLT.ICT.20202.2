@@ -1,7 +1,5 @@
 package Tree.Binary;
 
-import Tree.Node;
-
 public class BinaryBalanceTree extends BinaryTree{
 	private int balanceFactor = 1;
 	

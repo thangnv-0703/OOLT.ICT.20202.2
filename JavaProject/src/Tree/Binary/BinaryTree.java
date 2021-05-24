@@ -1,7 +1,5 @@
 package Tree.Binary;
 
-import Tree.Node;
-
 public class BinaryTree {
 	private Node root;
 
