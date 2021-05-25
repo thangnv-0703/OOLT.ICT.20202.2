@@ -29,8 +29,8 @@ public class Aims {
 		gTree.insert(2, 5);
 		gTree.insert(2, 6);
 		gTree.insert(3, 7);
-		gTree.insert(5, 8);
-		gTree.insert(5, 9);
+		gTree.insert(6, 8);
+		gTree.insert(6, 9);
 		gTree.traverse(gTree.getRoot());
 	}
 }

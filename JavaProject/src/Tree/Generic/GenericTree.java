@@ -11,7 +11,7 @@ public class GenericTree {
 		if (x.getChildren().size() > 0) {
 			for (GenNode child: x.getChildren()) {
 				if (search(child, value) != null) {
-					return child;
+					return search(child, value);
 				}
 			}
 		}
@@ -32,11 +32,11 @@ public class GenericTree {
 			GenNode childNode = new GenNode(value);
 			parentNode.setChild(childNode);
 			childNode.setParent(parentNode);
-//			if (parentNode.getChildren().size() <= this.MAX_NODE) {
-//			}
-//			else {
-//				System.out.println("Node " + parent + " can't have more than 3 nodes");
-//			}
+			if (parentNode.getChildren().size() <= this.MAX_NODE+10) {
+			}
+			else {
+				System.out.println("Node " + parent + " can't have more than 3 nodes");
+			}
 		} else {
 			System.out.println("No node in tree has value: " + parent);
 		}
@@ -83,7 +83,6 @@ public class GenericTree {
 		} else {
 			System.out.println(x.getValue() + "==");
 		}
-//		count++;
 		for (GenNode child: x.getChildren()) {
 			traverse(child);
 		}
