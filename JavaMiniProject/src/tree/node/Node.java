@@ -1,39 +1,47 @@
-package tree.node;
-
-import java.util.ArrayList;
+	package Tree.Binary;
 
 public class Node {
-	private int value;
-	private Node parent;
-	ArrayList<Node> children = new ArrayList<Node>();
-			
-	public Node(int value) {
-		this.value = value;
-	}
-	
-	public int getValue() {
-		return value;
-	}
+    private int value;
+    private int height;
+    Node left;
+    Node right;
+
+   public Node(int value) {
+        this.value = value;
+        this.height = 1;
+        right = null;
+        left = null;
+    }
+
+   	public int getValue() {
+	   return value;
+   	}
 
 	public void setValue(int value) {
-		this.value = value;
+	   this.value = value;
+   	}
+
+   	public int getHeight() {
+		return height;
+	}
+   	
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
-	public ArrayList<Node> getChildren() {
-		return children;
+   public Node getLeft() {
+		return left;
 	}
 	
-	
-	public void setChild(Node x) {
-		this.children.add(x);
-	}
-
-	public Node getParent() {
-		return parent;
-	}
-
-	public void setParent(Node parent) {
-		this.parent = parent;
+	public void setLeft(Node left) {
+		this.left = left;
 	}
 	
+	public Node getRight() {
+		return right;
+	}
+	
+	public void setRight(Node right) {
+		this.right = right;
+	}
 }

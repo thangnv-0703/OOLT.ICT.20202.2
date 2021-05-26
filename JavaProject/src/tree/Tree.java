@@ -21,25 +21,30 @@ public class Tree {
 		return null;
 	}
 	
+	
 
 	public void insert(int parent, int value) {
-		if (search(this.root, parent) != null) {
-			Node parentNode = search(this.root, parent);
-			Node childNode = new Node(value);
-			parentNode.setChild(childNode);
-			childNode.setParent(parentNode);
+		if (this.search(this.root, value) != null) {
+			if (search(this.root, parent) != null) {
+				Node parentNode = search(this.root, parent);
+				Node childNode = new Node(value);
+				parentNode.setChild(childNode);
+				childNode.setParent(parentNode);
+			} else {
+				System.out.println("No node in tree has value: " + parent);
+			}
 		} else {
-			System.out.println("No node in tree has value: " + parent);
+			System.out.println("Value already exit");
 		}
 	}
 	
-	public void inserRoot(int value) {
+	public void insertRoot(int value) {
 		Node x = new Node(value);
 		this.root = x;
 		this.root.setParent(null);
 	}
 	
-	private Node findLeftMost(Node x) {
+	protected Node findLeftMost(Node x) {
 		if (x.getChildren().size() == 0) {
 			return x;
 		}
@@ -72,7 +77,7 @@ public class Tree {
 		if (x.getParent() != null) {
 			System.out.println(x.getValue() + "-" + x.getParent().getValue());
 		} else {
-			System.out.println(x.getValue() + "==");
+			System.out.println(x.getValue());
 		}
 		for (Node child: x.getChildren()) {
 			traverse(child);
