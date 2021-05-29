@@ -9,7 +9,7 @@ public class Test {
 		// TODO Auto-generated method stub
 		BalanceTree gTree = new BalanceTree();
 		gTree.setDistance(2);
-		gTree.insertRoot(1);
+		gTree.insert(true, 1);
 		gTree.insert(1, 2);
 		gTree.insert(1, 3);
 		gTree.insert(1, 4);

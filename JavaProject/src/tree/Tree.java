@@ -38,10 +38,12 @@ public class Tree {
 		}
 	}
 	
-	public void insertRoot(int value) {
-		Node x = new Node(value);
-		this.root = x;
-		this.root.setParent(null);
+	public void insert(boolean isRoot, int value) {
+		if (isRoot) {
+			Node x = new Node(value);
+			this.root = x;
+			this.root.setParent(null);
+		}
 	}
 	
 	protected Node findLeftMost(Node x) {
@@ -66,6 +68,10 @@ public class Tree {
 				parentNode.getChildren().remove(x);
 				parentNode.setChild(y);
 				y.setParent(parentNode);
+				y.setChildren(x.getChildren());
+				for(Node child: x.getChildren()) {
+					child.setParent(y);
+				}
 			}
 		}
 	}
