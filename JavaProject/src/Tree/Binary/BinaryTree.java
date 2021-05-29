@@ -1,167 +1,48 @@
-package Tree.Binary;
+package tree.binary;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
-import Tree.Node;
-import Tree.Tree;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import tree.Tree;
+import tree.node.Node;
+import tree.node.*;
 
 public class BinaryTree extends Tree {
-	// ADD
-	public Node addRecursive(Node current, int value) {
-	    if (current == null) {
-	        return new Node(value);
-	    }
-
-	    if (value < current.getValue()) {
-	        current.setLeft(addRecursive(current.getLeft(), value));
-	    } else if (value > current.getValue()) {
-	        current.setRight(addRecursive(current.getRight(), value));  
-	    } else {
-	        // value already exists
-	        return current;
-	    }
-
-	    return current;
-	}	
-	
 	@Override
-	public void add(int value) {
-		root = addRecursive(root, value);
-	}
-	
-    // SEARCH	
-	private boolean containsNodeRecursive(Node current, int value) {
-	    if (current == null) {
-	        return false;
-	    } 
-	    if (value == current.getValue()) {
-	        return true;
-	    } 
-	    return value < current.getValue()
-	      ? containsNodeRecursive(current.getLeft(), value)
-	      : containsNodeRecursive(current.getRight(), value);
-	}
-	
-	@Override
-	public boolean search(int value) {
-		return containsNodeRecursive(root, value);
-	}
-	
-	//DELETE
-	
-	public int findSmallestValue(Node root) {
-	    return root.getLeft() == null ? root.getValue() : findSmallestValue(root.getLeft());
-	}
-	
-	public Node deleteRecursive(Node current, int value) {
-	    if (current == null) {
-	        return null;
-	    }
-
-	    if (value == current.getValue()) {
-	        // Node to delete found
-	        
-	    	if (current.getLeft() == null && current.getRight() == null) {
-	    	    return null;
-	    	}
-	    	if  (current.getRight() == null) {
-	    	    return current.getLeft();
-	    	}
-
-	    	if (current.getLeft() == null) {
-	    	    return current.getRight();
-	    	}
-	    	else {
-	    		int smallestValue = findSmallestValue(current.getRight());
-	    		current.setValue(smallestValue);
-	    		current.setRight(deleteRecursive(current.getRight(), smallestValue));
-	    		return current;
+	public void insert(int parent,int value) {
+		Node parentNode = search(this.root, parent);
+		if (parentNode != null) {
+			if (parentNode.getChildren().size()<=1) {
+				Node childNode = new Node(value);
+				parentNode.setChild(childNode);
+				childNode.setParent(parentNode);
 			}
-	    	
-	    	
-	    } 
-	    if (value < current.getValue()) {
-	        current.setLeft(deleteRecursive(current.getLeft(), value)); 
-	        return current;
-	    }
-	    current.setRight(deleteRecursive(current.getRight(), value)); 
-	    return current;
+			else {
+				System.out.println("parent node has enought children ");
+			}
+		} else {
+			System.out.println("No node in tree has value: " + parent);
+		}
 	}
-	
+
 	@Override
-	public void delete(int value)
-	{
-		root = deleteRecursive(root, value);
+	public void drawTree(Pane drawPane) {
+		drawBinaryTree(drawPane, 1200, 100,root, 50, 1000);
 		
 	}
-	
-	// UPDATE
-	public void update(Node current,int value) {
-		boolean check = search(current.getValue());
-		if ( check = true)
-		{
-			delete(current.getValue());
-			add(value);
+	public void drawBinaryTree(Pane drawPane, double x, double y, Node node, double size, double Xbefore) {
+		if (node!=root) {
+			Line line = new Line(node.getParent().getX(), node.getParent().getY() + size * 10 / 9.25, x, y);
+			drawPane.getChildren().add(line);
 		}
-		else {
-			System.out.println(current.getValue() +"is not in the tree");
-		}
+		node.drawNode(drawPane,x, y,size);
+		node.setX(x);
+		node.setY(y);
+		node.setSize(size);
+		if (node.getChildren().size()>0)
+		if (node.getChildren().get(0) != null)
+			drawBinaryTree(drawPane, x - Xbefore / 2, y + 150, node.getChildren().get(0), (size * 9.25 / 10), Xbefore / 2);
+		if (node.getChildren().size()==2)
+			if (node.getChildren().get(1) != null)
+			drawBinaryTree(drawPane, x + Xbefore / 2, y + 150, node.getChildren().get(1), size * 9.25 / 10, Xbefore / 2);
 	}
-	
-	// DEPTH-FIRST SEARCH
-	  // IN ORDER
-	public void traverseInOrder(Node node) {
-	    if (node != null) {
-	        traverseInOrder(node.getLeft());
-	        System.out.print(" " + node.getValue());
-	        traverseInOrder(node.getRight());
-	    }
-	}
-	
-	  //PRE-ORDER
-	public void traversePreOrder(Node node) {
-	    if (node != null) {
-	        System.out.print(" " + node.getValue());
-	        traversePreOrder(node.getLeft());
-	        traversePreOrder(node.getRight());
-	    }
-	}
-	
-	  //POST-ORDER
-	public void traversePostOrder(Node node) {
-	    if (node != null) {
-	        traversePostOrder(node.getLeft());
-	        traversePostOrder(node.getRight());
-	        System.out.print(" " + node.getValue());
-	    }
-	}
-	
-	// BREADTH-FIRST SEARCH
-	public void traverseLevelOrder() {
-	    if (root == null) {
-	        return;
-	    }
-
-	    Queue<Node> nodes = new LinkedList<>();
-	    nodes.add(root);
-
-	    while (!nodes.isEmpty()) {
-
-	        Node node = nodes.remove();
-
-	        System.out.print(" " + node.getValue());
-
-	        if (node.getLeft() != null) {
-	            nodes.add(node.getLeft());
-	        }
-
-	        if (node.getRight() != null) {
-	            nodes.add(node.getRight());
-	        }
-	    }
-	}
-
 }
