@@ -1,27 +1,27 @@
 package tree.exception;
 
-public class NotExit extends Exception {
+public class FullChildException extends Exception {
 
-	public NotExit() {
+	public FullChildException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotExit(String message) {
+	public FullChildException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotExit(Throwable cause) {
+	public FullChildException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotExit(String message, Throwable cause) {
+	public FullChildException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public NotExit(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public FullChildException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
