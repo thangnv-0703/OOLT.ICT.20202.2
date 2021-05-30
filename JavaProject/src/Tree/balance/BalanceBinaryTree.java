@@ -2,7 +2,7 @@ package tree.balance;
 
 import tree.node.Node;
 
-public class BinaryBalanceTree extends BalanceTree {
+public class BalanceBinaryTree extends BalanceTree {
 	 @Override
 		public void insert(int parent,int value) {
 			Node parentNode = search(this.root, parent);
