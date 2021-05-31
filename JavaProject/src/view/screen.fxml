@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="1500.0" prefWidth="2048.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="1500.0" prefWidth="325.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbTreeName" text="TREE" textFill="#23a0da">
+               <font>
+                  <Font size="38.0" />
+               </font>
+            </Label>
+            <TitledPane animated="false" text="Create">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="237.0" layoutY="123.0" mnemonicParsing="false" onAction="#emptyButtonPressed" text="Empty" underline="true">
+                           <font>
+                              <Font name="System Italic" size="21.0" />
+                           </font></Button>
+                        <Button fx:id="btnBinaryTree" layoutX="21.0" layoutY="84.0" mnemonicParsing="false" onAction="#btnBinaryTreePressed" text="Binary Tree" />
+                        <Button fx:id="btnBbTree" layoutX="21.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnBbTreePressed" text="Binary Balance Tree" />
+                        <Button fx:id="btnGenTree" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnGenTreePressed" text="Generic Tree" />
+                        <Button fx:id="btnBalanceTree" layoutX="21.0" layoutY="154.0" mnemonicParsing="false" onAction="#btnBalancePressed" text="Balance Tree" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Insert">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="16.0" text="Parent :" />
+                        <TextField fx:id="tfParentInsert" layoutX="116.0" layoutY="16.0" prefWidth="180.0" />
+                        <TextField fx:id="tfValueInsert" layoutX="116.0" layoutY="67.0" prefHeight="45.0" prefWidth="180.0" />
+                        <Button fx:id="btnInsert" layoutX="46.0" layoutY="124.0" mnemonicParsing="false" onAction="#btnInsertPressed" text="Insert" />
+                        <Label layoutX="14.0" layoutY="73.0" text="VALUE :" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Search">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="VALUE :" />
+                        <TextField fx:id="tfSearch" layoutX="101.0" layoutY="7.0" prefHeight="45.0" prefWidth="180.0" />
+                        <Button layoutX="41.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnSearchPressed" text="Search" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Remove">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <Label layoutX="26.0" layoutY="14.0" text="VALUE :" />
+                        <TextField fx:id="tfRemove" layoutX="105.0" layoutY="7.0" prefHeight="45.0" prefWidth="180.0" />
+                        <Button fx:id="btnRemove" layoutX="47.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnRemovePressed" text="Remove" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="titledPaneSetDiastance" animated="false" disable="true" expanded="false" text="Set Limited Distance (balance)">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="27.0" layoutY="27.0" text="VALUE :" />
+                        <TextField fx:id="tfDistance" layoutX="105.0" layoutY="20.0" prefWidth="180.0" />
+                        <Button fx:id="btnSetDistance" layoutX="70.0" layoutY="79.0" mnemonicParsing="false" onAction="#btnSetDistancePressed" text="Set" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox alignment="CENTER" prefHeight="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnTraversalPressed" text="Traverse" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <Pane fx:id="drawPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <VBox prefHeight="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0">
+               <children>
+                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#stop" text="Stop">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#play" text="Play">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnUndo" disable="true" mnemonicParsing="false" onAction="#btnUndoPressed" text="undo">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnRedo" disable="true" mnemonicParsing="false" onAction="#btnRedoPressed" text="redo" />
+               </children>
+            </HBox>
+            <Label fx:id="lbCode" text="..................." />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

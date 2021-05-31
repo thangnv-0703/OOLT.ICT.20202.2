@@ -1,5 +1,17 @@
 package tree;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
+import controller.ScreenController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.TextFlow;
+import javafx.util.Duration;
 import tree.exception.DuplicateValue;
 import tree.exception.NotExitException;
 import tree.node.Node;
@@ -126,5 +138,214 @@ public class Tree {
 		for (Node child: x.getChildren()) {
 			traverse(child);
 		}
+	}
+	public void drawTree(Pane drawPane) {
+		if (this!=null)
+		drawGenTree(drawPane, 1100, 100, root, 50, 0, 2200);
+	}
+
+	public void drawGenTree(Pane drawPane, double x, double y, Node node, double size, double beginX, double endX) {
+		if (node != root) {
+			Line line = new Line(node.getParent().getX(), node.getParent().getY() + size * 10 / 9.25, x, y);
+//			line.setStrokeWidth(5);
+			drawPane.getChildren().add(line);
+		}
+		node.drawNode(drawPane, x, y, size);
+		node.setX(x);
+		node.setY(y);
+		node.setSize(size);
+		double space = (endX - beginX) / (node.getChildren().size());
+		for (int i = 0; i < node.getChildren().size(); i++) {
+			drawGenTree(drawPane, beginX + space / 2 + space * i, y + 150, node.getChildren().get(i),
+					(size * 9.25 / 10), beginX + space * i, beginX + space * i + space);
+		}
+	}
+//	public ArrayList<Node> searchArrayList(ArrayList<Node>listNodes,Node node,int value){
+//		if (node == null) {
+//			return null;
+//		}
+//		else {
+//			listNodes.add(node);
+//			if (node.getValue() == value) {
+//				return listNodes;
+//			}
+//			if (node.getChildren().size() > 0) {
+//				for (Node child : node.getChildren()) {
+//					if (search(child, value) != null) {
+//						 return searchArrayList(listNodes,child, value);
+//					}
+//				}
+//			}}
+//		return null;
+//	}
+	public ArrayList<Node> searchArrayList(Node x,int value){
+		ArrayList<Node> list1=new ArrayList<Node>();
+		list1=traversalArrayList(list1,x);
+		ArrayList<Node> list2=new ArrayList<Node>();
+		for (Node node:list1) {
+			list2.add(node);
+			if(node.getValue()==value) return list2;
+		}
+		return list2;
+	}
+	public Timeline visualSearch(Pane drawPane,int value,Label lbCode) {
+		Timeline timeline=new Timeline();
+		ArrayList<Node>   list=new ArrayList<Node>();
+		list=searchArrayList(root,value);
+//		if (list!=null)
+		for(int i=0;i<list.size();i++) {
+			Node node=list.get(i);
+			Duration duration = Duration.seconds(i);
+	        KeyFrame keyFrame = new KeyFrame(duration,evt-> {
+	        	node.changeColorNode(drawPane);
+	        	lbCode.setText("Searching for Node haved value :"+value+" ...");
+	        	lbCode.setVisible(true);
+	        });
+	        timeline.getKeyFrames().add(keyFrame);
+	        if(node.getValue()!=value) {
+		        KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(i+1),evt-> {
+		        	node.changeCircle(drawPane,javafx.scene.paint.Color.WHITE,5);
+		        });
+		        timeline.getKeyFrames().add(keyFrame1);
+	        }
+		}
+		timeline.autoReverseProperty().set(false);
+		timeline.cycleCountProperty().set(1);
+		return timeline;
+	}
+	public ArrayList<Node> traversalArrayList(ArrayList<Node>listNodes,Node node){
+		if (node == null) {
+			return null;
+		}
+		else {
+			listNodes.add(node);
+			for (Node child: node.getChildren()) {
+			traversalArrayList(listNodes, child);
+		}}
+		return listNodes;
+	}
+	public Timeline visualTraversal(Pane drawPane) {
+		Timeline timeline=new Timeline();
+		ArrayList<Node>   list=new ArrayList<Node>();
+		list=traversalArrayList(list, root);
+		int n=list.size();
+		for(int i=0;i<list.size();i++) {
+			Node node=list.get(i);
+			Duration duration = Duration.seconds(i);
+			int j=i;
+	        KeyFrame keyFrame = new KeyFrame(duration,evt-> {
+	        	node.changeColorNode(drawPane);
+	        });
+	        Node nodeResult=new Node(node.getValue());
+	        KeyFrame keyFrame2;
+        	if(n<15) 
+        		keyFrame2 = new KeyFrame(duration,evt-> {
+        			 nodeResult.drawNode(drawPane,100+ 150*j,1200,  50);
+    	        });
+        		
+        	else {
+        		if (j<15) keyFrame2 = new KeyFrame(duration,evt-> {
+        			nodeResult.drawNode(drawPane,100+ 150*j,1100,  40);
+    	        });
+        		else keyFrame2 = new KeyFrame(duration,evt-> {
+        			nodeResult.drawNode(drawPane, 150*j,1000,  40);
+    	        });
+        	}
+	        timeline.getKeyFrames().add(keyFrame);
+        	timeline.getKeyFrames().add(keyFrame2);
+		        KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(i+1),evt-> {
+		        	node.changeCircle(drawPane,javafx.scene.paint.Color.WHITE,5);
+		        	nodeResult.changeCircle(drawPane,javafx.scene.paint.Color.WHITE, 5);
+		        });
+		        timeline.getKeyFrames().add(keyFrame1);
+		}
+		timeline.autoReverseProperty().set(false);
+		timeline.cycleCountProperty().set(1);
+		return timeline;
+	}
+	public Timeline visualInsert(Pane drawPane,int parent, int value,Label lbCode) {
+		Timeline timeline=visualSearch(drawPane, parent,lbCode);
+		Duration duration=timeline.getTotalDuration().add(Duration.seconds(1));
+		KeyFrame keyFrame = new KeyFrame(duration,evt-> {
+			insert(parent, value);
+			drawPane.getChildren().clear();
+			drawTree(drawPane);
+			Node node = search(root, value);
+			node.changeColorNode(drawPane);
+        });
+        timeline.getKeyFrames().add(keyFrame);
+		return timeline;
+	}
+	
+	public Timeline visualRemove(Pane drawPane,int value,Label lbCode) {
+		Timeline timeline=visualSearch(drawPane, value,lbCode);
+		Duration duration=timeline.getTotalDuration().add(Duration.seconds(1));
+		Node x = search(root, value);
+		Node parentNode = x.getParent();
+		if (x.getChildren().size() == 0) {
+			parentNode.getChildren().remove(x);
+			KeyFrame keyFrame = new KeyFrame(duration,evt-> {
+				drawPane.getChildren().clear();
+	        	drawTree(drawPane);
+	        });
+			timeline.getKeyFrames().add(keyFrame);
+		} else {
+			KeyFrame keyFrame = new KeyFrame(duration,evt-> {
+				drawPane.getChildren().clear();
+	        	drawTree(drawPane);
+	        	Circle circle=new Circle(x.getX()+50,x.getY()+50,5);
+	        	circle.setFill(javafx.scene.paint.Color.RED);
+	        	drawPane.getChildren().add(circle);
+	        });
+			timeline.getKeyFrames().add(keyFrame);
+			Node y = this.findDeepestNode(x, this.getMaxDeepth(x));
+			ArrayList<Node>   list=new ArrayList<Node>();
+			list=searchArrayList(x,y.getValue());
+			for(int i=1;i<list.size();i++) {
+				Node node=list.get(i);
+				Duration duration1 = duration.add(Duration.seconds(i));
+		        keyFrame = new KeyFrame(duration1,evt-> {
+		        	node.changeColorNode(drawPane);
+		        });
+		        timeline.getKeyFrames().add(keyFrame);
+		        if(node.getValue()!=y.getValue()) {
+			        KeyFrame keyFrame1 = new KeyFrame(duration1.add(Duration.seconds(1)),evt-> {
+			        	node.changeCircle(drawPane,javafx.scene.paint.Color.WHITE,5);
+			        });
+			        timeline.getKeyFrames().add(keyFrame1);
+		        }
+			}
+			
+
+			keyFrame = new KeyFrame(duration.add(Duration.seconds(list.size()+1)),evt-> {
+				y.getParent().getChildren().remove(y);
+//				parentNode.getChildren().remove(x);
+				x.setValue(y.getValue());
+//				parentNode.setChild(y);
+//				y.setParent(parentNode);
+//				y.setChildren(x.getChildren());
+//				for(Node child: x.getChildren()) {
+//					child.setParent(y);
+//				}
+				drawPane.getChildren().clear();
+	        	drawTree(drawPane);
+	        	x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 5);
+	        });
+	        timeline.getKeyFrames().add(keyFrame);
+		}
+		return timeline;
+	}
+	public Tree dupplicate(Tree treeDup,Node node) {
+		if (node == null) {
+			return null;
+		}
+		else {
+			if (node.getParent()==null) treeDup.insert(true,node.getValue()) ;
+			else treeDup.insert(node.getParent().getValue(),node.getValue()) ;
+			for (Node child: node.getChildren()) {
+			dupplicate(treeDup, child);
+		}}
+		return treeDup;
+		
 	}
 }	
