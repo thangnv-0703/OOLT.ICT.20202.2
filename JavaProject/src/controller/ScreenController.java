@@ -11,13 +11,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.TextFlow;
-import javafx.util.Duration;
 import tree.Tree;
 import tree.balance.BalanceTree;
 import tree.balance.BalancedBinaryTree;
 import tree.binary.BinaryTree;
-import tree.exception.NotExitException;
 import tree.node.Node;
 
 public class ScreenController {
@@ -68,6 +65,8 @@ public class ScreenController {
 	private Button btnUndo;
 	@FXML
 	private Button btnRedo;
+	@FXML
+	private TextArea taCode;
 	private Timeline timeline;
 	
 	public ScreenController(Tree genTree,BinaryTree binaryTree,BalanceTree balanceTree,BalancedBinaryTree bbTree) {
@@ -153,6 +152,8 @@ public class ScreenController {
 	}
 	@FXML
 	void btnInsertPressed() {
+		drawPane.getChildren().clear();
+		tree.drawTree(drawPane);
 		if(tree instanceof BinaryTree) {
 			treeBefore=new BinaryTree();
 		}
@@ -171,7 +172,7 @@ public class ScreenController {
 		if (sParent !="" && sValue!="" && tree.getRoot()!=null) {
 			int parent=Integer.parseInt(sParent);
 			int value = Integer.parseInt(sValue);
-			timeline=tree.visualInsert(drawPane, parent, value,lbCode);
+			timeline=tree.visualInsert(drawPane, parent, value,lbCode,taCode);
 			timeline.play();
 		}
 		if (sValue!="" && tree.getRoot()==null) {
@@ -182,17 +183,21 @@ public class ScreenController {
 
 	@FXML
 	void btnSearchPressed(){
-		
+		drawPane.getChildren().clear();
+		tree.drawTree(drawPane);
 		String string = tfSearch.getText();
 		if (string != null) {
 			int value = Integer.parseInt(string);
-			timeline=tree.visualSearch(drawPane, value,lbCode);
+			timeline=tree.visualSearch(drawPane, value,lbCode,taCode);
 			timeline.play();
 //			search(tree.getRoot(), value);
 		}
 	}
 	@FXML
 	void btnRemovePressed(){
+
+		drawPane.getChildren().clear();
+		tree.drawTree(drawPane);
 		if(tree instanceof BinaryTree) {
 			treeBefore=new BinaryTree();
 		}
@@ -209,7 +214,7 @@ public class ScreenController {
 		String string = tfRemove.getText();
 		if (string != null) {
 			int value = Integer.parseInt(string);
-			timeline=tree.visualRemove(drawPane, value,lbCode);
+			timeline=tree.visualRemove(drawPane, value,lbCode,taCode);
 			timeline.play();
 			
 //			search(tree.getRoot(), value);
@@ -218,7 +223,9 @@ public class ScreenController {
 	}
 	@FXML 
 	void btnTraversalPressed(){
-		timeline=tree.visualTraversal(drawPane);
+		drawPane.getChildren().clear();
+		tree.drawTree(drawPane);
+		timeline=tree.visualTraversal(drawPane,taCode);
 		timeline.play();
 	}
 	@FXML 
@@ -240,28 +247,28 @@ public class ScreenController {
 	private Button btnPreviousStep;
 	@FXML
 	private Button btnPlay;
-	@FXML
-	public void nextStep() {
-		this.timeline.pause();
-		Duration duration=timeline.getCurrentTime();
-//		duration= round(duration);
-//		timeline.setRate(-1);
-		timeline.play();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		timeline.pause();
-	}
-	@FXML
-	public void previousStep() {
-		this.timeline.pause();
-		Duration duration=timeline.getCurrentTime().subtract(Duration.seconds(2));
-		timeline.playFrom(duration);
-		if (timeline.getCurrentTime()==duration.add(Duration.seconds(2))) timeline.pause();
-	}
+//	@FXML
+//	public void nextStep() {
+//		this.timeline.pause();
+//		Duration duration=timeline.getCurrentTime();
+////		duration= round(duration);
+////		timeline.setRate(-1);
+//		timeline.play();
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		timeline.pause();
+//	}
+//	@FXML
+//	public void previousStep() {
+//		this.timeline.pause();
+//		Duration duration=timeline.getCurrentTime().subtract(Duration.seconds(2));
+//		timeline.playFrom(duration);
+//		if (timeline.getCurrentTime()==duration.add(Duration.seconds(2))) timeline.pause();
+//	}
 	
 	@FXML
 	public void stop() {

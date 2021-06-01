@@ -3,23 +3,22 @@ import javafx.fxml.FXMLLoader;
 
 
 
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import tree.Tree;
 import tree.balance.BalanceTree;
 import tree.balance.BalancedBinaryTree;
 import tree.binary.BinaryTree;
-import tree.node.Node;
 
 import java.io.IOException;
 import javax.swing.JFrame;
-import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 
 public class TreeScreen extends JFrame {
-	private Node root;
+	private static final long serialVersionUID = 1L;
 	BinaryTree binaryTree;
 	Tree genTree;
 	BalanceTree balanceTree;

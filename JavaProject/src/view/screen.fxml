@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="1500.0" prefWidth="2048.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="1200.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <VBox prefHeight="1500.0" prefWidth="325.0" BorderPane.alignment="CENTER">
+      <VBox prefWidth="325.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="lbTreeName" text="TREE" textFill="#23a0da">
                <font>
@@ -90,7 +90,15 @@
       <Pane fx:id="drawPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <VBox prefHeight="200.0" BorderPane.alignment="CENTER">
+      <VBox prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="taCode" prefHeight="300.0" prefWidth="300.0" />
+            <Label fx:id="lbCode" text="..................." textFill="#dd2626" />
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0">
                <children>
@@ -104,19 +112,19 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="btnUndo" disable="true" mnemonicParsing="false" onAction="#btnUndoPressed" text="undo">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnRedo" disable="true" mnemonicParsing="false" onAction="#btnRedoPressed" text="redo" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="btnUndo" disable="true" mnemonicParsing="false" onAction="#btnUndoPressed" text="undo">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin></Button>
-                  <Button fx:id="btnRedo" disable="true" mnemonicParsing="false" onAction="#btnRedoPressed" text="redo" />
-               </children>
-            </HBox>
-            <Label fx:id="lbCode" text="..................." />
          </children>
       </VBox>
-   </right>
+   </bottom>
 </BorderPane>
