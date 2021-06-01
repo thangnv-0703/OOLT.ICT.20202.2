@@ -32,7 +32,7 @@ public class TreeScreen extends JFrame {
 		this.bbTree=bbTree;
 		JFXPanel fxPanel = new JFXPanel();
 		this.add(fxPanel);
-		this.setSize(3048, 1500);
+//		this.setSize(1800, 1100);
 		this.setTitle("Tree");
 
 		this.setVisible(true);

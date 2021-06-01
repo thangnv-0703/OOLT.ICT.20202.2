@@ -117,7 +117,7 @@ public class ScreenController {
 		lbTreeName.setText("BALANCED TREE");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
-		drawPane.getChildren().clear();
+		if (balanceTree.getRoot()!=null)drawPane.getChildren().clear();
 		this.tree=balanceTree;
 		tree.drawTree(drawPane);
 	}
@@ -128,7 +128,7 @@ public class ScreenController {
 		btnRedo.setDisable(true);
 		drawPane.getChildren().clear();
 		this.tree=binaryTree;
-		binaryTree.drawTree(drawPane);
+		if (binaryTree.getRoot()!=null) binaryTree.drawTree(drawPane);
 		titledPaneSetDiastance.setDisable(true);
 	}
 	@FXML
@@ -138,7 +138,7 @@ public class ScreenController {
 		btnRedo.setDisable(true);
 		drawPane.getChildren().clear();
 		this.tree=genTree;
-		genTree.drawTree(drawPane);
+		if (genTree.getRoot()!=null)genTree.drawTree(drawPane);
 		titledPaneSetDiastance.setDisable(true);
 	}
 	@FXML
@@ -146,7 +146,7 @@ public class ScreenController {
 		lbTreeName.setText("BALANCED BINARY");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
-		drawPane.getChildren().clear();
+		if (bbTree.getRoot()!=null)drawPane.getChildren().clear();
 		this.tree=bbTree;
 		tree.drawTree(drawPane);
 	}

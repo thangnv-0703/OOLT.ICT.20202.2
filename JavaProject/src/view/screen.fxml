@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="1200.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="1100.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <VBox prefWidth="325.0" BorderPane.alignment="CENTER">
          <children>
@@ -87,10 +87,10 @@
       </VBox>
    </left>
    <center>
-      <Pane fx:id="drawPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="drawPane" BorderPane.alignment="CENTER" />
    </center>
    <right>
-      <VBox prefWidth="300.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="1000.0" prefWidth="266.0" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="taCode" prefHeight="300.0" prefWidth="300.0" />
             <Label fx:id="lbCode" text="..................." textFill="#dd2626" />
