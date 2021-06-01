@@ -82,6 +82,7 @@ public class ScreenController {
 	}
 	@FXML
 	void emptyButtonPressed(ActionEvent event) {
+		taCode.setText("");
 		if(tree instanceof BinaryTree) {
 			treeBefore=new BinaryTree();
 		}
@@ -114,6 +115,7 @@ public class ScreenController {
 	}
 	@FXML
 	void btnBalancePressed() {
+		taCode.setText("");
 		lbTreeName.setText("BALANCED TREE");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
@@ -123,6 +125,7 @@ public class ScreenController {
 	}
 	@FXML
 	void btnBinaryTreePressed() {
+		taCode.setText("");
 		lbTreeName.setText("BINARY TREE");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
@@ -133,6 +136,7 @@ public class ScreenController {
 	}
 	@FXML
 	void btnGenTreePressed() {
+		taCode.setText("");
 		lbTreeName.setText("GENERIC TREE");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
@@ -143,7 +147,8 @@ public class ScreenController {
 	}
 	@FXML
 	void btnBbTreePressed() {
-		lbTreeName.setText("BALANCED BINARY");
+		taCode.setText("");
+		lbTreeName.setText("BALANCED BINARY TREE");
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(true);
 		if (bbTree.getRoot()!=null)drawPane.getChildren().clear();
@@ -152,8 +157,9 @@ public class ScreenController {
 	}
 	@FXML
 	void btnInsertPressed() {
+		taCode.setText("");
 		drawPane.getChildren().clear();
-		tree.drawTree(drawPane);
+		if (tree.getRoot()!=null)tree.drawTree(drawPane);
 		if(tree instanceof BinaryTree) {
 			treeBefore=new BinaryTree();
 		}
@@ -183,6 +189,7 @@ public class ScreenController {
 
 	@FXML
 	void btnSearchPressed(){
+		taCode.setText("");
 		drawPane.getChildren().clear();
 		tree.drawTree(drawPane);
 		String string = tfSearch.getText();
@@ -195,7 +202,7 @@ public class ScreenController {
 	}
 	@FXML
 	void btnRemovePressed(){
-
+		taCode.setText("");
 		drawPane.getChildren().clear();
 		tree.drawTree(drawPane);
 		if(tree instanceof BinaryTree) {
@@ -235,6 +242,8 @@ public class ScreenController {
 			if (tree instanceof BalanceTree)
 				((BalanceTree) tree).setDistance(Integer.parseInt(distance));
 		}
+		titledPaneSetDiastance.setDisable(true);
+		//dialog
 	}
 	
 	

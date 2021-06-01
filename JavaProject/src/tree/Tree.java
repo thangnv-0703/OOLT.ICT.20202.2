@@ -139,7 +139,7 @@ public class Tree {
 
 	public void drawTree(Pane drawPane) {
 		if (this != null)
-			drawGenTree(drawPane, 1100, 100, root, 50, 0, 2200);
+			drawGenTree(drawPane, 600, 30, root, 30, 0, 1200);
 	}
 
 	public void drawGenTree(Pane drawPane, double x, double y, Node node, double size, double beginX, double endX) {
@@ -154,7 +154,7 @@ public class Tree {
 		node.setSize(size);
 		double space = (endX - beginX) / (node.getChildren().size());
 		for (int i = 0; i < node.getChildren().size(); i++) {
-			drawGenTree(drawPane, beginX + space / 2 + space * i, y + 150, node.getChildren().get(i),
+			drawGenTree(drawPane, beginX + space / 2 + space * i, y + 100, node.getChildren().get(i),
 					(size * 9.25 / 10), beginX + space * i, beginX + space * i + space);
 		}
 	}
@@ -216,7 +216,7 @@ public class Tree {
 			timeline.getKeyFrames().add(keyFrame);
 			if (node.getValue() != value) {
 				KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(i + 1), evt -> {
-					node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
+					node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
 				});
 				timeline.getKeyFrames().add(keyFrame1);
 			}
@@ -278,26 +278,25 @@ public class Tree {
 			});
 			Node nodeResult = new Node(node.getValue());
 			KeyFrame keyFrame2;
-			if (n < 15)
+			if (n < 11)
 				keyFrame2 = new KeyFrame(duration, evt -> {
-					nodeResult.drawNode(drawPane, 100 + 150 * j, 1100, 50);
+					nodeResult.drawNode(drawPane, 100 + 100 * j, 600, 25);
 				});
 
 			else {
-				if (j < 15)
+				if (i < 11)
 					keyFrame2 = new KeyFrame(duration, evt -> {
-						nodeResult.drawNode(drawPane, 100 + 150 * j, 1000, 30);
+						nodeResult.drawNode(drawPane, 100 + 100 * j, 550, 25);
 					});
 				else
 					keyFrame2 = new KeyFrame(duration, evt -> {
-						nodeResult.drawNode(drawPane, 150 * j, 1100, 30);
+						nodeResult.drawNode(drawPane, 100 * (j-10), 600, 25);
 					});
 			}
 			timeline.getKeyFrames().add(keyFrame);
 			timeline.getKeyFrames().add(keyFrame2);
 			KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(i + 1), evt -> {
-				node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
-				nodeResult.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
+				node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
 			});
 			timeline.getKeyFrames().add(keyFrame1);
 		}
@@ -345,7 +344,7 @@ public class Tree {
 				taCode.setText(string);
 				drawPane.getChildren().clear();
 				drawTree(drawPane);
-				Circle circle = new Circle(x.getX() + 50, x.getY() + 50, 5);
+				Circle circle = new Circle(x.getX() + 25, x.getY() + 25, 2);
 				circle.setFill(javafx.scene.paint.Color.RED);
 				drawPane.getChildren().add(circle);
 			});
@@ -362,7 +361,7 @@ public class Tree {
 				timeline.getKeyFrames().add(keyFrame);
 				if (node.getValue() != y.getValue()) {
 					KeyFrame keyFrame1 = new KeyFrame(duration1.add(Duration.seconds(1)), evt -> {
-						node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
+						node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
 					});
 					timeline.getKeyFrames().add(keyFrame1);
 				}
@@ -377,7 +376,7 @@ public class Tree {
 				x.setValue(y.getValue());
 				drawPane.getChildren().clear();
 				drawTree(drawPane);
-				x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 5);
+				x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 2);
 			});
 			timeline.getKeyFrames().add(keyFrame);
 		}

@@ -37,7 +37,7 @@ public class BinaryTree extends Tree {
 	}
 	@Override
 	public void drawTree(Pane drawPane) {
-		drawBinaryTree(drawPane, 1100, 100,root, 50, 1100);
+		drawBinaryTree(drawPane, 600, 30,root, 30, 600);
 		
 	}
 	public void drawBinaryTree(Pane drawPane, double x, double y, Node node, double size, double Xbefore) {
@@ -51,9 +51,9 @@ public class BinaryTree extends Tree {
 		node.setSize(size);
 		if (node.getChildren().size()>0)
 		if (node.getChildren().get(0) != null)
-			drawBinaryTree(drawPane, x - Xbefore / 2, y + 150, node.getChildren().get(0), (size * 9.25 / 10), Xbefore / 2);
+			drawBinaryTree(drawPane, x - Xbefore / 2, y + 75, node.getChildren().get(0), (size * 9.25 / 10), Xbefore / 2);
 		if (node.getChildren().size()==2)
 			if (node.getChildren().get(1) != null)
-			drawBinaryTree(drawPane, x + Xbefore / 2, y + 150, node.getChildren().get(1), size * 9.25 / 10, Xbefore / 2);
+			drawBinaryTree(drawPane, x + Xbefore / 2, y + 75, node.getChildren().get(1), size * 9.25 / 10, Xbefore / 2);
 	}
 }

@@ -97,7 +97,6 @@ public class Node {
 		Circle circle = new Circle(x, y, size);
 		circle.setStroke(javafx.scene.paint.Color.BLACK);
 		circle.setFill(javafx.scene.paint.Color.WHITE);
-//		circle.setStrokeWidth(5);
 		drawPane.getChildren().add(circle);
 		Text txt = new Text(x - size / 5, y, String.valueOf(getValue()));
 		drawPane.getChildren().add(txt);
@@ -105,29 +104,13 @@ public class Node {
 	public void changeColorNode(Pane drawPane) {
 		if (this.getParent()!=null) {
 			Line line = new Line(getParent().getX(), getParent().getY() + size * 10 / 9.25, x, y);
-			line.setStrokeWidth(5);
-//			line.setStroke(Color.LIGHTGREEN);
+			line.setStrokeWidth(2);
 			drawPane.getChildren().add(line);
 		}
-		changeCircle(drawPane,javafx.scene.paint.Color.LIGHTGREEN, 5);
-//		Circle circle = new Circle(x, y, size);
-//		circle.setStroke(javafx.scene.paint.Color.BLACK);
-//		circle.setFill(javafx.scene.paint.Color.LIGHTGREEN);
-//		circle.setStrokeWidth(5);
-//		drawPane.getChildren().add(circle);
-//		Text txt = new Text(x - size / 5, y, String.valueOf(getValue()));
-//		drawPane.getChildren().add(txt);
+		changeCircle(drawPane,javafx.scene.paint.Color.LIGHTGREEN, 2);
 	}
 	
-//	public void changeCircleStroke(Pane drawPane) {
-////		Circle circle = new Circle(x, y, size);
-////		circle.setStroke(javafx.scene.paint.Color.BLACK);
-////		circle.setFill(javafx.scene.paint.Color.WHITE);
-////		circle.setStrokeWidth(5);
-////		Text txt = new Text(x - size / 5, y, String.valueOf(getValue()));
-////		drawPane.getChildren().add(circle);
-////		drawPane.getChildren().add(txt);
-//	}
+
 	public void changeCircle(Pane drawPane,Paint string,int strokeWidth) {
 		Circle circle = new Circle(x, y, size);
 		circle.setStroke(javafx.scene.paint.Color.BLACK);

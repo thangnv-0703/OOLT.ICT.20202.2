@@ -193,7 +193,7 @@ public class BalanceTree extends Tree {
 							taCode.setText(string);
 							drawPane.getChildren().clear();
 							drawTree(drawPane);
-							Circle circle = new Circle(x.getX() + 50, x.getY() + 50, 5);
+							Circle circle = new Circle(x.getX() + 25, x.getY() + 25, 2);
 							circle.setFill(javafx.scene.paint.Color.RED);
 							drawPane.getChildren().add(circle);
 						});
@@ -210,7 +210,7 @@ public class BalanceTree extends Tree {
 							timeline.getKeyFrames().add(keyFrame);
 							if (node.getValue() != y.getValue()) {
 								KeyFrame keyFrame1 = new KeyFrame(duration1.add(Duration.seconds(1)), evt -> {
-									node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
+									node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
 								});
 								timeline.getKeyFrames().add(keyFrame1);
 							} 
@@ -236,7 +236,7 @@ public class BalanceTree extends Tree {
 						taCode.setText(string);
 						drawPane.getChildren().clear();
 						drawTree(drawPane);
-						Circle circle = new Circle(x.getX() + 50, x.getY() + 50, 5);
+						Circle circle = new Circle(x.getX() + 25, x.getY() + 25, 2);
 						circle.setFill(javafx.scene.paint.Color.RED);
 						drawPane.getChildren().add(circle);
 					});
@@ -253,7 +253,7 @@ public class BalanceTree extends Tree {
 						timeline.getKeyFrames().add(keyFrame);
 						if (node.getValue() != value) {
 							KeyFrame keyFrame1 = new KeyFrame(duration1.add(Duration.seconds(1)), evt -> {
-								node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 5);
+								node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
 							});
 							timeline.getKeyFrames().add(keyFrame1);
 						}
@@ -268,7 +268,7 @@ public class BalanceTree extends Tree {
 
 						drawPane.getChildren().clear();
 						drawTree(drawPane);
-						x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 5);
+						x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 2);
 					});
 					timeline.getKeyFrames().add(keyFrame);
 				}
