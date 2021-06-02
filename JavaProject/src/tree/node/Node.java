@@ -1,11 +1,52 @@
 package tree.node;
 
+
 import java.util.ArrayList;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 
 public class Node {
 	private int value;
 	private Node parent;
 	ArrayList<Node> children = new ArrayList<Node>();
+	private double x;
+	private double y;
+	private double size;
+	private Circle circle;
+			
+	public Circle getCircle() {
+		return circle;
+	}
+
+	public void setCircle(Circle circle) {
+		this.circle = circle;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public double getSize() {
+		return size;
+	}
+	public void setSize(double size) {
+		this.size = size;
+	}
 	public boolean isLeaf() {
 		return this.getChildren().size() == 0 ? true : false;
 	}
@@ -52,4 +93,31 @@ public class Node {
 		this.parent = parent;
 	}
 	
+	public void drawNode(Pane drawPane, double x, double y, double size) {
+		Circle circle = new Circle(x, y, size);
+		circle.setStroke(javafx.scene.paint.Color.BLACK);
+		circle.setFill(javafx.scene.paint.Color.WHITE);
+		drawPane.getChildren().add(circle);
+		Text txt = new Text(x - size / 5, y, String.valueOf(getValue()));
+		drawPane.getChildren().add(txt);
+	}
+	public void changeColorNode(Pane drawPane) {
+		if (this.getParent()!=null) {
+			Line line = new Line(getParent().getX(), getParent().getY() + size * 10 / 9.25, x, y);
+			line.setStrokeWidth(2);
+			drawPane.getChildren().add(line);
+		}
+		changeCircle(drawPane,javafx.scene.paint.Color.LIGHTGREEN, 2);
+	}
+	
+
+	public void changeCircle(Pane drawPane,Paint string,int strokeWidth) {
+		Circle circle = new Circle(x, y, size);
+		circle.setStroke(javafx.scene.paint.Color.BLACK);
+		circle.setFill(string);
+		circle.setStrokeWidth(strokeWidth);
+		Text txt = new Text(x - size / 5, y, String.valueOf(getValue()));
+		drawPane.getChildren().add(circle);
+		drawPane.getChildren().add(txt);
+	}
 }

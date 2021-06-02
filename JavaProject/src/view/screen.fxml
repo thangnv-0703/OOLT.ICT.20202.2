@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="1100.0" prefWidth="1800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="1000.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane animated="false" text="Search">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="VALUE :" />
+                                    <TextField fx:id="tfSearch" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#btnSearchPressed" text="Search">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Insert">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="Parent :" />
+                                    <TextField fx:id="tfParentInsert" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets left="20.0" top="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Label text="VALUE :" />
+                                    <TextField fx:id="tfValueInsert" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="btnInsert" mnemonicParsing="false" onAction="#btnInsertPressed" text="Insert">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Remove">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="VALUE :" />
+                                    <TextField fx:id="tfRemove" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="btnRemove" mnemonicParsing="false" onAction="#btnRemovePressed" text="Remove">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="titledPaneSetDiastance" animated="false" disable="true" expanded="false" text="Set Limited Distance (balance)">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="VALUE :" />
+                                    <TextField fx:id="tfDistance" prefWidth="100.0">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button fx:id="btnSetDistance" mnemonicParsing="false" onAction="#btnSetDistancePressed" text="Set Distance">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnTraversalPressed" text="Traverse" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#emptyButtonPressed" text="Empty" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <Pane fx:id="drawPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="taCode" editable="false" prefHeight="150.0" prefWidth="150.0" />
+            <Label fx:id="lbCode" text="........." textFill="#da1b1b" />
+         </children>
+      </VBox>
+   </right>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0">
+               <children>
+                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#stop" text="Stop" />
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#play" text="Play">
+                     <HBox.margin>
+                        <Insets left="10.0" right="30.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnUndo" disable="true" mnemonicParsing="false" onAction="#btnUndoPressed" text="Undo">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnRedo" disable="true" mnemonicParsing="false" onAction="#btnRedoPressed" text="Redo" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnGenTree" mnemonicParsing="false" onAction="#btnGenTreePressed" text="Generic Tree">
+               <HBox.margin>
+                  <Insets left="10.0" right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnBalanceTree" mnemonicParsing="false" onAction="#btnBalancePressed" text="Balanced Tree">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnBinaryTree" mnemonicParsing="false" onAction="#btnBinaryTreePressed" text="Binary Tree">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnBbTree" mnemonicParsing="false" onAction="#btnBbTreePressed" text="Balanced Binary Tree">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <HBox>
+               <children>
+                  <Label fx:id="lbTreeName" text="TREE" textFill="#10bae1">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
