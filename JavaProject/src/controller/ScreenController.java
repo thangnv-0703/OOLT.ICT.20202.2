@@ -307,19 +307,22 @@ public class ScreenController {
 
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(false);
-		if(tree instanceof BinaryTree) {
+		if(treeBefore instanceof BinaryTree) {
 			this.binaryTree=(BinaryTree) this.treeBefore;
 			this.tree=this.binaryTree;
 		}
-		else if(tree instanceof BalancedBinaryTree) {
+		else if(treeBefore instanceof BalancedBinaryTree) {
 			this.bbTree=(BalancedBinaryTree) this.treeBefore;
-		}else if(tree instanceof BalanceTree) {
+			this.tree=this.bbTree;
+		}else if(treeBefore instanceof BalanceTree) {
 			this.balanceTree=(BalanceTree) this.treeBefore;
+			this.tree=this.balanceTree;
 		}else {
 			this.genTree=(Tree) this.treeBefore;
+			this.tree=this.genTree;
 		}
 		drawPane.getChildren().clear();
-		treeBefore.drawTree(drawPane);
+		tree.drawTree(drawPane);
 	}
 	
 	@FXML 

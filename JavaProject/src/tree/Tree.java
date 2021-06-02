@@ -112,13 +112,7 @@ public class Tree {
 				} else {
 					Node y = this.findDeepestNode(this.root, this.getMaxDeepth(this.root));
 					y.getParent().getChildren().remove(y);
-					parentNode.getChildren().remove(x);
-					parentNode.setChild(y);
-					y.setParent(parentNode);
-					y.setChildren(x.getChildren());
-					for (Node child : x.getChildren()) {
-						child.setParent(y);
-					}
+					x.setValue(y.getValue());
 				}
 			}
 		} catch (Exception e) {

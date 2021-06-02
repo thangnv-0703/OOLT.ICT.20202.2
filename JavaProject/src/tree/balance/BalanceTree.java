@@ -45,7 +45,10 @@ public class BalanceTree extends Tree {
 	public int getMinDeepth(Node x) {
 		return findMin(x, 1000000);
 	}
-
+	public boolean isBalance() {
+		if (this.getMaxDeepth(root)-this.getMinDeepth(root)<=this.distance) return true;
+		else return false;
+	}
 //    @Override
 //	public void insert(int parent,int value) {
 //    	try {
@@ -96,15 +99,26 @@ public class BalanceTree extends Tree {
 						timeline.getKeyFrames().add(keyFrame);
 
 					} else {
-						new Dialog("", "Insert " + value + " make tree unbalanced");
+						KeyFrame keyFrame = new KeyFrame(duration, evt -> {
+							new Dialog("", "Insert " + value + " make tree unbalanced");
+						});
+						timeline.getKeyFrames().add(keyFrame);
 						throw new UnbalancedException("Insert " + value + " make tree unbalanced");
+						
 					}
 				} else {
-					new Dialog("", "No node in tree has value: " + parent);
+					KeyFrame keyFrame = new KeyFrame(duration, evt -> {
+
+						new Dialog("", "No node in tree has value: " + parent);
+					});
+					timeline.getKeyFrames().add(keyFrame);
 					throw new NotExitException("No node in tree has value: " + parent);
 				}
 			} else {
-				new Dialog("", "Value " + value + " already exit");
+				KeyFrame keyFrame = new KeyFrame(duration, evt -> {
+					new Dialog("", "Value " + value + " already exit");
+				});
+				timeline.getKeyFrames().add(keyFrame);
 				throw new DuplicateValue("Value " + value + " already exit");
 			}
 		} catch (Exception e) {
@@ -114,56 +128,56 @@ public class BalanceTree extends Tree {
 		return timeline;
 	}
 
-	@Override
-	public void remove(int value) {
-		try {
-			Node x = search(root, value);
-			if (x == null) {
-				new Dialog("", "No node in tree has value: " + value);
-				throw new NotExitException("No node in tree has value: " + value);
-			} else {
-				Node parentNode = x.getParent();
-				if (x.isLeaf()) {
-					if (this.getMaxDeepth(this.root) - x.getDeepthFromRoot() + 1 <= this.distance) {
-						parentNode.getChildren().remove(x);
-					} else {
-//    					find the max deep from node x
-						int distance = this.getMaxDeepth(this.root);
-//    					find the node have max deep
-						Node deepestNode = this.findDeepestNode(this.root, distance);
-//    					System.out.println("Remove make tree unbalanced");
-
-//    					remove similar to tree
-						deepestNode.getParent().getChildren().remove(deepestNode);
-						parentNode.getChildren().remove(x);
-						parentNode.getChildren().remove(x);
-						parentNode.setChild(deepestNode);
-						deepestNode.setParent(parentNode);
-					}
-				} else {
-//    				find the max deep from node x
-					int distance = this.getMaxDeepth(this.root);
-//    				find the node have max deep
-					Node deepestNode = this.findDeepestNode(this.root, distance);
-
-//    				remove similar to tree
-					deepestNode.getParent().getChildren().remove(deepestNode);
-					parentNode.getChildren().remove(x);
-					parentNode.setChild(deepestNode);
-					deepestNode.setParent(parentNode);
-					deepestNode.setChildren(x.getChildren());
-
-//    				set children node
-					for (Node child : x.getChildren()) {
-						child.setParent(deepestNode);
-					}
-				}
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}
-	}
+//	@Override
+//	public void remove(int value) {
+//		try {
+//			Node x = search(root, value);
+//			if (x == null) {
+//				new Dialog("", "No node in tree has value: " + value);
+//				throw new NotExitException("No node in tree has value: " + value);
+//			} else {
+//				Node parentNode = x.getParent();
+//				if (x.isLeaf()) {
+//					if (this.getMaxDeepth(this.root) - x.getDeepthFromRoot() + 1 <= this.distance) {
+//						parentNode.getChildren().remove(x);
+//					} else {
+////    					find the max deep from node x
+//						int distance = this.getMaxDeepth(this.root);
+////    					find the node have max deep
+//						Node deepestNode = this.findDeepestNode(this.root, distance);
+////    					System.out.println("Remove make tree unbalanced");
+//
+////    					remove similar to tree
+//						deepestNode.getParent().getChildren().remove(deepestNode);
+//						parentNode.getChildren().remove(x);
+//						parentNode.getChildren().remove(x);
+//						parentNode.setChild(deepestNode);
+//						deepestNode.setParent(parentNode);
+//					}
+//				} else {
+////    				find the max deep from node x
+//					int distance = this.getMaxDeepth(this.root);
+////    				find the node have max deep
+//					Node deepestNode = this.findDeepestNode(this.root, distance);
+//
+////    				remove similar to tree
+//					deepestNode.getParent().getChildren().remove(deepestNode);
+//					parentNode.getChildren().remove(x);
+//					parentNode.setChild(deepestNode);
+//					deepestNode.setParent(parentNode);
+//					deepestNode.setChildren(x.getChildren());
+//
+////    				set children node
+//					for (Node child : x.getChildren()) {
+//						child.setParent(deepestNode);
+//					}
+//				}
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			System.out.println(e.getMessage());
+//		}
+//	}
 
 	@Override
 	public Timeline visualRemove(Pane drawPane, int value, Label lbCode, TextArea taCode) {
@@ -175,12 +189,16 @@ public class BalanceTree extends Tree {
 				new Dialog("", "No node in tree has value: " + value);
 				throw new NotExitException("No node in tree has value: " + value);
 			} else {
-				x.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 1);
+//				x.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 1);
 				Duration duration = timeline.getTotalDuration().add(Duration.seconds(1));
 //    			Node nodeValue = search(root, value);
 				Node parentNode = x.getParent();
 				if (x.isLeaf()) {
-					if (this.getMaxDeepth(this.root) - x.getDeepthFromRoot() + 1 <= this.distance) {
+					BalanceTree checkTree=new BalanceTree();
+					checkTree.setDistance(distance);
+					checkTree=(BalanceTree) this.dupplicate(checkTree, this.root);
+					checkTree.remove(value);
+					if (checkTree.isBalance()) {
 						parentNode.getChildren().remove(x);
 						KeyFrame keyFrame = new KeyFrame(duration, evt -> {
 							lbCode.setText("Removed:" + value);
@@ -249,7 +267,7 @@ public class BalanceTree extends Tree {
 					timeline.getKeyFrames().add(keyFrame);
 					Node y = this.findDeepestNode(root, this.getMaxDeepth(x));
 					ArrayList<Node> list = new ArrayList<Node>();
-					list = searchArrayList(x, y.getValue());
+					list = searchArrayList(root, y.getValue());
 					for (int i = 1; i < list.size(); i++) {
 						Node node = list.get(i);
 						Duration duration1 = duration.add(Duration.seconds(i));

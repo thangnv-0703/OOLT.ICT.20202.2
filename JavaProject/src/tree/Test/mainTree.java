@@ -53,7 +53,6 @@ public class mainTree {
 		bbTree.insert(15,20);
 		bbTree.insert(18,22);
 		bbTree.insert(18,23);
-		bbTree.insert(15,29);
 		new TreeScreen(genTree,binaryTree,balanceTree,bbTree);
 	} 
 }
