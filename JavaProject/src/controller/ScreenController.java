@@ -15,6 +15,8 @@ import tree.Tree;
 import tree.balance.BalanceTree;
 import tree.balance.BalancedBinaryTree;
 import tree.binary.BinaryTree;
+import tree.dialog.Dialog;
+import tree.exception.NotExitException;
 import tree.node.Node;
 
 public class ScreenController {
@@ -201,7 +203,7 @@ public class ScreenController {
 		}
 	}
 	@FXML
-	void btnRemovePressed(){
+	void btnRemovePressed() throws NotExitException{
 		taCode.setText("");
 		drawPane.getChildren().clear();
 		tree.drawTree(drawPane);
@@ -243,7 +245,7 @@ public class ScreenController {
 				((BalanceTree) tree).setDistance(Integer.parseInt(distance));
 		}
 		titledPaneSetDiastance.setDisable(true);
-		//dialog
+		new Dialog("", "Set limit distance to "+distance);
 	}
 	
 	

@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import tree.Tree;
+import tree.dialog.Dialog;
 import tree.exception.DuplicateValue;
 import tree.exception.NotExitException;
 import tree.exception.UnbalancedException;
@@ -95,12 +96,15 @@ public class BalanceTree extends Tree {
 						timeline.getKeyFrames().add(keyFrame);
 
 					} else {
+						new Dialog("", "Insert " + value + " make tree unbalanced");
 						throw new UnbalancedException("Insert " + value + " make tree unbalanced");
 					}
 				} else {
+					new Dialog("", "No node in tree has value: " + parent);
 					throw new NotExitException("No node in tree has value: " + parent);
 				}
 			} else {
+				new Dialog("", "Value " + value + " already exit");
 				throw new DuplicateValue("Value " + value + " already exit");
 			}
 		} catch (Exception e) {
@@ -115,6 +119,7 @@ public class BalanceTree extends Tree {
 		try {
 			Node x = search(root, value);
 			if (x == null) {
+				new Dialog("", "No node in tree has value: " + value);
 				throw new NotExitException("No node in tree has value: " + value);
 			} else {
 				Node parentNode = x.getParent();
@@ -167,6 +172,7 @@ public class BalanceTree extends Tree {
 			Node x = search(root, value);
 
 			if (x == null) {
+				new Dialog("", "No node in tree has value: " + value);
 				throw new NotExitException("No node in tree has value: " + value);
 			} else {
 				x.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 1);
