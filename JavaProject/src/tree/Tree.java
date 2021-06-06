@@ -11,7 +11,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import tree.dialog.Dialog;
 import tree.exception.DuplicateValue;
 import tree.exception.NotExitException;
 import tree.node.Node;
@@ -79,11 +78,9 @@ public class Tree {
 					parentNode.setChild(childNode);
 					childNode.setParent(parentNode);
 				} else {
-					new Dialog("", "No node in tree has value: " + parent);
 					throw new NotExitException("No node in tree has value: " + parent);
 				}
 			} else {
-				new Dialog("", "Value " + value + " already exit");
 				throw new DuplicateValue("Value " + value + " already exit");
 			}
 		} catch (Exception e) {
@@ -102,7 +99,6 @@ public class Tree {
 	public void remove(int value) throws NotExitException {
 		try {
 			if (search(root, value) == null) {
-				new Dialog("","No node in tree has value: " + value);
 				throw new NotExitException("No node in tree has value: " + value);
 			} else {
 				Node x = search(root, value);
@@ -112,7 +108,13 @@ public class Tree {
 				} else {
 					Node y = this.findDeepestNode(this.root, this.getMaxDeepth(this.root));
 					y.getParent().getChildren().remove(y);
-					x.setValue(y.getValue());
+					parentNode.getChildren().remove(x);
+					parentNode.setChild(y);
+					y.setParent(parentNode);
+					y.setChildren(x.getChildren());
+					for (Node child : x.getChildren()) {
+						child.setParent(y);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -235,7 +237,6 @@ public class Tree {
 				String string2 = taCode.getText() + "\n-Cannot Find :"+value;
 				taCode.setText(string2);
 				lbCode.setText("Cannot Find :"+value);
-				new Dialog("","No node in tree has value: " + value);
 			});
 			timeline.getKeyFrames().add(keyFrame1);
 		}
@@ -321,73 +322,7 @@ public class Tree {
 		return timeline;
 	}
 
-//	public Timeline visualRemove(Pane drawPane, int value, Label lbCode, TextArea taCode) throws NotExitException{
-//		Timeline timeline = visualSearch(drawPane, value, lbCode, taCode);
-//		Duration duration = timeline.getTotalDuration().add(Duration.seconds(1));
-//		if (search(root, value) != null) {
-//			Node x = search(root, value);
-//			Node parentNode = x.getParent();
-//			if (x.isLeaf()) {
-//				parentNode.getChildren().remove(x);
-//				KeyFrame keyFrame = new KeyFrame(duration, evt -> {
-//					lbCode.setText("Remove value: " + value);
-//					String string = taCode.getText() + "\n-Remove value: " + value;
-//					taCode.setText(string);
-//					drawPane.getChildren().clear();
-//					drawTree(drawPane);
-//				});
-//				timeline.getKeyFrames().add(keyFrame);
-//			} else {
-//				KeyFrame keyFrame = new KeyFrame(duration, evt -> {
-//					lbCode.setText("Find the deepest Node\n   of :" + value);
-//					String string = taCode.getText() + "\n-Find the deepest Node\n   of :" + value;
-//					taCode.setText(string);
-//					drawPane.getChildren().clear();
-//					drawTree(drawPane);
-//					Circle circle = new Circle(x.getX() + 25, x.getY() + 25, 2);
-//					circle.setFill(javafx.scene.paint.Color.RED);
-//					drawPane.getChildren().add(circle);
-//				});
-//				timeline.getKeyFrames().add(keyFrame);
-//				Node y = this.findDeepestNode(x, this.getMaxDeepth(x));
-//				ArrayList<Node> list = new ArrayList<Node>();
-//				list = searchArrayList(x, y.getValue());
-//				for (int i = 1; i < list.size(); i++) {
-//					Node node = list.get(i);
-//					Duration duration1 = duration.add(Duration.seconds(i));
-//					keyFrame = new KeyFrame(duration1, evt -> {
-//						node.changeColorNode(drawPane);
-//					});
-//					timeline.getKeyFrames().add(keyFrame);
-//					if (node.getValue() != y.getValue()) {
-//						KeyFrame keyFrame1 = new KeyFrame(duration1.add(Duration.seconds(1)), evt -> {
-//							node.changeCircle(drawPane, javafx.scene.paint.Color.WHITE, 2);
-//						});
-//						timeline.getKeyFrames().add(keyFrame1);
-//					}
-//				}
-//
-//				keyFrame = new KeyFrame(duration.add(Duration.seconds(list.size() + 1)), evt -> {
-//					lbCode.setText("Replace :" + value + " by " + y.getValue());
-//					String string = taCode.getText() + "\n-The Deepest Node :" + y.getValue() + "\n-eplace :" + value
-//							+ " by " + y.getValue();
-//					taCode.setText(string);
-//					y.getParent().getChildren().remove(y);
-//					x.setValue(y.getValue());
-//					drawPane.getChildren().clear();
-//					drawTree(drawPane);
-//					x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 2);
-//				});
-//				timeline.getKeyFrames().add(keyFrame);
-//			}
-//		} else {
-//			new Dialog("","No node in tree has value: " + value);
-//			throw new NotExitException("No node in tree has value: " + value);
-//		}
-//		return timeline;
-//	}
-
-	public Timeline visualRemove(Pane drawPane, int value, Label lbCode, TextArea taCode) throws NotExitException {
+	public Timeline visualRemove(Pane drawPane, int value, Label lbCode, TextArea taCode) {
 		Timeline timeline = visualSearch(drawPane, value, lbCode, taCode);
 		Duration duration = timeline.getTotalDuration().add(Duration.seconds(1));
 		Node x = search(root, value);
@@ -445,10 +380,10 @@ public class Tree {
 				x.changeCircle(drawPane, javafx.scene.paint.Color.LIGHTGREEN, 2);
 			});
 			timeline.getKeyFrames().add(keyFrame);
-		}} 
-		
+		}}
 		return timeline;
 	}
+
 	public Tree dupplicate(Tree treeDup, Node node) {
 		if (node == null) {
 			return null;
@@ -462,6 +397,6 @@ public class Tree {
 			}
 		}
 		return treeDup;
-		
+
 	}
 }
