@@ -15,6 +15,8 @@ import tree.Tree;
 import tree.balance.BalanceTree;
 import tree.balance.BalancedBinaryTree;
 import tree.binary.BinaryTree;
+import tree.dialog.Dialog;
+import tree.exception.NotExitException;
 import tree.node.Node;
 
 public class ScreenController {
@@ -83,16 +85,17 @@ public class ScreenController {
 	@FXML
 	void emptyButtonPressed(ActionEvent event) {
 		taCode.setText("");
-		if(tree instanceof BinaryTree) {
-			treeBefore=new BinaryTree();
-		}
-		else if(tree instanceof BalancedBinaryTree) {
-			treeBefore=new BalancedBinaryTree();
-		}else if(tree instanceof BalanceTree) {
-			treeBefore=new BalanceTree();
-		}else {
-			treeBefore=new Tree();
-		}
+//		if(tree instanceof BinaryTree) {
+//			treeBefore=new BinaryTree();
+//		}
+//		else if(tree instanceof BalancedBinaryTree) {
+//			treeBefore=new BalancedBinaryTree();
+//		}else if(tree instanceof BalanceTree) {
+//			treeBefore=new BalanceTree();
+//		}else {
+//			treeBefore=new Tree();
+//		}
+		treeBefore=tree.newTree();
 		btnUndo.setDisable(false);
 		treeBefore=tree.dupplicate(treeBefore, tree.getRoot());
 		drawPane.getChildren().clear();
@@ -160,17 +163,17 @@ public class ScreenController {
 		taCode.setText("");
 		drawPane.getChildren().clear();
 		if (tree.getRoot()!=null)tree.drawTree(drawPane);
-		if(tree instanceof BinaryTree) {
-			treeBefore=new BinaryTree();
-		}
-		else if(tree instanceof BalancedBinaryTree) {
-			treeBefore=new BalancedBinaryTree();
-		}else if(tree instanceof BalanceTree) {
-			treeBefore=new BalanceTree();
-		}else {
-			treeBefore=new Tree();
-		}
-
+//		if(tree instanceof BinaryTree) {
+//			treeBefore=new BinaryTree();
+//		}
+//		else if(tree instanceof BalancedBinaryTree) {
+//			treeBefore=new BalancedBinaryTree();
+//		}else if(tree instanceof BalanceTree) {
+//			treeBefore=new BalanceTree();
+//		}else {
+//			treeBefore=new Tree();
+//		}
+		treeBefore=tree.newTree();
 		btnUndo.setDisable(false);
 		if (tree!=null) treeBefore=tree.dupplicate(treeBefore, tree.getRoot());
 		String sParent = tfParentInsert.getText();
@@ -201,21 +204,21 @@ public class ScreenController {
 		}
 	}
 	@FXML
-	void btnRemovePressed(){
+	void btnRemovePressed() throws NotExitException{
 		taCode.setText("");
 		drawPane.getChildren().clear();
 		tree.drawTree(drawPane);
-		if(tree instanceof BinaryTree) {
-			treeBefore=new BinaryTree();
-		}
-		else if(tree instanceof BalancedBinaryTree) {
-			treeBefore=new BalancedBinaryTree();
-		}else if(tree instanceof BalanceTree) {
-			treeBefore=new BalanceTree();
-		}else {
-			treeBefore=new Tree();
-		}
-
+//		if(tree instanceof BinaryTree) {
+//			treeBefore=new BinaryTree();
+//		}
+//		else if(tree instanceof BalancedBinaryTree) {
+//			treeBefore=new BalancedBinaryTree();
+//		}else if(tree instanceof BalanceTree) {
+//			treeBefore=new BalanceTree();
+//		}else {
+//			treeBefore=new Tree();
+//		}
+		treeBefore=tree.newTree();
 		btnUndo.setDisable(false);
 		treeBefore=tree.dupplicate(treeBefore, tree.getRoot());
 		String string = tfRemove.getText();
@@ -243,7 +246,7 @@ public class ScreenController {
 				((BalanceTree) tree).setDistance(Integer.parseInt(distance));
 		}
 		titledPaneSetDiastance.setDisable(true);
-		//dialog
+		new Dialog("", "Set limit distance to "+distance);
 	}
 	
 	
@@ -291,33 +294,37 @@ public class ScreenController {
 	
 	@FXML 
 	void btnUndoPressed(){
-		if(tree instanceof BinaryTree) {
-			treeAfter=new BinaryTree();
-		}
-		else if(tree instanceof BalancedBinaryTree) {
-			treeAfter=new BalancedBinaryTree();
-		}else if(tree instanceof BalanceTree) {
-			treeAfter=new BalanceTree();
-		}else {
-			treeAfter=new Tree();
-		}
+//		if(tree instanceof BinaryTree) {
+//			treeAfter=new BinaryTree();
+//		}
+//		else if(tree instanceof BalancedBinaryTree) {
+//			treeAfter=new BalancedBinaryTree();
+//		}else if(tree instanceof BalanceTree) {
+//			treeAfter=new BalanceTree();
+//		}else {
+//			treeAfter=new Tree();
+//		}
+		treeAfter=tree.newTree();
 		this.treeAfter=tree.dupplicate(treeAfter,this.tree.getRoot());;
 
 		btnUndo.setDisable(true);
 		btnRedo.setDisable(false);
-		if(tree instanceof BinaryTree) {
+		if(treeBefore instanceof BinaryTree) {
 			this.binaryTree=(BinaryTree) this.treeBefore;
 			this.tree=this.binaryTree;
 		}
-		else if(tree instanceof BalancedBinaryTree) {
+		else if(treeBefore instanceof BalancedBinaryTree) {
 			this.bbTree=(BalancedBinaryTree) this.treeBefore;
-		}else if(tree instanceof BalanceTree) {
+			this.tree=this.bbTree;
+		}else if(treeBefore instanceof BalanceTree) {
 			this.balanceTree=(BalanceTree) this.treeBefore;
+			this.tree=this.balanceTree;
 		}else {
 			this.genTree=(Tree) this.treeBefore;
+			this.tree=this.genTree;
 		}
 		drawPane.getChildren().clear();
-		treeBefore.drawTree(drawPane);
+		tree.drawTree(drawPane);
 	}
 	
 	@FXML 

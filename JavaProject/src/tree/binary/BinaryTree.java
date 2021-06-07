@@ -3,6 +3,7 @@ package tree.binary;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import tree.Tree;
+import tree.dialog.Dialog;
 import tree.exception.DuplicateValue;
 import tree.exception.FullChildException;
 import tree.exception.NotExitException;
@@ -21,13 +22,16 @@ public class BinaryTree extends Tree {
 						childNode.setParent(parentNode);
 					}
 					else {
+						new Dialog("", "Node " + parent + " has enought children");
 						throw new FullChildException("Node " + parent + " has enought children");
 					}
 				} else {
+					new Dialog("", "No node in tree has value: " + parent);
 					throw new NotExitException("No node in tree has value: " + parent);
 				}
 			}
 			else {
+				new Dialog("", "Value " + value + " already exit");
 				throw new DuplicateValue("Value " + value + " already exit");
 			}
 		} catch (Exception e) {
@@ -56,4 +60,9 @@ public class BinaryTree extends Tree {
 			if (node.getChildren().get(1) != null)
 			drawBinaryTree(drawPane, x + Xbefore / 2, y + 75, node.getChildren().get(1), size * 9.25 / 10, Xbefore / 2);
 	}
+	@Override
+
+	 public Tree newTree() {
+		 return new BinaryTree();
+	 }
 }
